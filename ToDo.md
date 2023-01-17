@@ -1,6 +1,10 @@
 # To Do:
 
+
 ## Soon:
+
+### Mose from pseudoDB to MongoDB
+
 
 ## Big Picture Roadmap:
 
@@ -18,6 +22,7 @@
 8. Move from using all English letters to native characters
     - Probably add HTML support for more languages
 9. Add sound bites that users can click on to hear pronunciations of the words
+
 
 ## Eventually:
 
