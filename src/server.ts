@@ -27,6 +27,8 @@ app.use(async (ctx, next) => {
 
 app.use(routes.user.allowedMethods());
 app.use(routes.user.routes());
+app.use(routes.challenges.allowedMethods());
+app.use(routes.challenges.routes());
 
 app.addEventListener("listen", () => {
   console.log(`Listening on localhost:${port}`);

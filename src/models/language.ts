@@ -17,4 +17,10 @@ languages.set("3", {
   name: "Pig Latin",
 });
 
+// const languages: Language[] = [
+//   { id: "1", name: "Spanish" },
+//   { id: "2", name: "Arabic" },
+//   { id: "3", name: "Pig Latin" },
+// ];
+
 export default languages;
