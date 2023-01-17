@@ -44,8 +44,8 @@
 - Colors
 - Numbers
 - Body Parts
-- Animals
 - Shapes
+- Animals
 
 ### Add rewards
 
