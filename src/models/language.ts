@@ -12,7 +12,7 @@ languages.set("2", {
   name: "Arabic",
 });
 
-languages.set("2", {
+languages.set("3", {
   id: "3",
   name: "Pig Latin",
 });
