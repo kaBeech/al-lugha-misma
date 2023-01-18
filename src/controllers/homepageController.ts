@@ -7,17 +7,17 @@ configure({
   views: viewPath,
 });
 
-const language_list = async (ctx: Context, next: Function) => {
-  const list_language = Array.from(ctx.state.models.languages.values());
+const index = async (ctx: Context, next: Function) => {
+  const message = "Welcome to an early version of my web app! <3";
 
-  const templateResult = await renderFile("language_list.eta", {
-    title: "Language List",
-    language_list: list_language,
+  const templateResult = await renderFile("index.eta", {
+    title: "Al-Lugha Misma",
+    message,
   });
 
   ctx.response.body = templateResult;
 };
 
 export default {
-  language_list,
+  index,
 };
