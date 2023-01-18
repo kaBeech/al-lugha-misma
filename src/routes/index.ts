@@ -1,9 +1,9 @@
 import session from "./session.ts";
 import user from "./user.ts";
-import challenges from "./challenges.ts";
+import challenge from "./challenge.ts";
 
 export default {
-  challenges,
+  challenge,
   session,
   user,
 };

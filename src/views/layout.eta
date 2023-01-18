@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
     <title><%= it.title %></title>
   </head>
   <body>
+    <div class="row">
+      <a href="/profile">Profile</a>
+      <a href="/challenge">Challenge</a>
+      <a href="/languages">Languages</a>
+      <a href="/cards">Cards</a>
+    </div>
+    <div id="content"></div>
     <%~ it.body %>
     <footer>This is a footer!</footer>
   </body>

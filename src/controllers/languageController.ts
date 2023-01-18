@@ -9,7 +9,7 @@ configure({
 });
 
 const language_list = async (ctx: Context, next: Function) => {
-  const list_language = ctx.state.models.languages.values();
+  const list_language = Array.from(ctx.state.models.languages.values());
 
   const templateResult = await renderFile("language_list.eta", {
     title: "Language List",
