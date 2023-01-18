@@ -1,4 +1,4 @@
 <!--index.html-->
 <body>
-    Hobbies of <%=it.name%> 
+    Welcome to <%=it.name%> 
 </body>
