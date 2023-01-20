@@ -1,5 +1,9 @@
 import { Application, Context } from "https://deno.land/x/oak/mod.ts";
 import { config } from "https://deno.land/x/dotenv/mod.ts";
+import {
+  MongoClient,
+  ObjectId,
+} from "https://deno.land/x/mongo@v0.30.1/mod.ts";
 
 import models from "./models/index.ts";
 import routes from "./routes/index.ts";
@@ -10,6 +14,14 @@ const port = 8000;
 // const port = parseInt(config()["PORT"]);
 
 const app = new Application();
+
+// const client = new MongoClient();
+
+// await client.connect(
+//   "mongodb+srv://<username>:<password>@<db_cluster_url>?authMechanism=SCRAM-SHA-1",
+// );
+
+// const db = client.database("test");
 
 const logging = async (ctx: Context, next: Function) => {
   console.log(`HTTP ${ctx.request.method} on ${ctx.request.url}`);
