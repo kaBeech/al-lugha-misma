@@ -1,16 +1,17 @@
 import { Context } from "https://deno.land/x/oak/mod.ts";
 import { configure, renderFile } from "https://deno.land/x/eta@v1.11.0/mod.ts";
-import * as postgres from "https://deno.land/x/postgres@v0.14.2/mod.ts";
-import { config } from "https://deno.land/x/dotenv/mod.ts";
+// import * as postgres from "https://deno.land/x/postgres@v0.14.2/mod.ts";
+// import { config } from "https://deno.land/x/dotenv/mod.ts";
 import * as ponder from "https://deno.land/x/ponder@v0.1.0/mod.ts";
+import "https://deno.land/x/dotenv/load.ts";
 
-// const DB_URI: string = Deno.env.get("DB_URI");
+const DB_URI = Deno.env.get("DB_URI") as string;
 
-// const ponderDB1 = await ponder.poolConnection(DB_URI, 5, false);
+const ponderDB1 = await ponder.poolConnection(DB_URI);
 
-const ponderDB1 = await ponder.poolConnection(
-  "dburi",
-);
+// const ponderDB1 = await ponder.poolConnection(
+//   "dburi",
+// );
 
 /////
 
@@ -22,7 +23,7 @@ const ponderDB1 = await ponder.poolConnection(
 
 const language_list = async (ctx: Context, next: Function) => {
   // const list_language = Array.from(ctx.state.models.languages.values());
-  const list_language = await ponderDB1.findAllinOne("languages");
+  const list_language = await ponderDB1.findAllinOne("languagestest");
 
   const list_language_string = JSON.stringify(list_language, null, 2);
 
