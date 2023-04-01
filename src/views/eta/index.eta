@@ -1,4 +1,0 @@
-<!--index.html-->
-<body>
-    Welcome to <%=it.name%> 
-</body>
