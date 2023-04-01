@@ -1,5 +1,0 @@
-<% layout('./layout') %>
-
-<div id="content">
-  <p>This list is <%= it.language_list %></p>
-</div>

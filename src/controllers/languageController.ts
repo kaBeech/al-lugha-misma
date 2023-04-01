@@ -27,12 +27,12 @@ const language_list = async (ctx: Context, next: Function) => {
 
   const list_language_string = JSON.stringify(list_language, null, 2);
 
-  const templateResult = await renderFile("language_list.eta", {
-    title: "Language List",
-    language_list: list_language_string,
-  });
+  // const templateResult = await renderFile("language_list.eta", {
+  //   title: "Language List",
+  //   language_list: list_language_string,
+  // });
 
-  ctx.response.body = templateResult;
+  ctx.response.body = list_language_string;
   // ctx.response.body = JSON.stringify(list_language.rows, null, 2);
 };
 
