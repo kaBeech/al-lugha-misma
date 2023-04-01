@@ -1,9 +1,6 @@
 import { Application, Context } from "https://deno.land/x/oak/mod.ts";
-import { config } from "https://deno.land/x/dotenv/mod.ts";
-import {
-  MongoClient,
-  ObjectId,
-} from "https://deno.land/x/mongo@v0.30.1/mod.ts";
+// import { config } from "https://deno.land/x/dotenv/mod.ts";
+// import * as postgres from "https://deno.land/x/postgres@v0.14.2/mod.ts";
 
 import models from "./models/index.ts";
 import routes from "./routes/index.ts";

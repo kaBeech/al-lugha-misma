@@ -7,7 +7,7 @@ import language_controller from "../controllers/languageController.ts";
 const router = new Router();
 
 // Implement routes
-router.post("/api/todos", addTodo);
+// router.post("/api/todos", addTodo);
 // router.get("/api/todos", getTodos); // Get all todos
 
 // GET request for homepage
