@@ -12,14 +12,6 @@ const port = 8000;
 
 const app = new Application();
 
-// const client = new MongoClient();
-
-// await client.connect(
-//   "mongodb+srv://<username>:<password>@<db_cluster_url>?authMechanism=SCRAM-SHA-1",
-// );
-
-// const db = client.database("test");
-
 const logging = async (ctx: Context, next: Function) => {
   console.log(`HTTP ${ctx.request.method} on ${ctx.request.url}`);
   console.log("Hello Deno!!");
