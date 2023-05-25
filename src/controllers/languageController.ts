@@ -11,7 +11,7 @@ const client = new Client(config);
 const language_list = async (ctx: Context, next: Function) => {
   await client.connect();
   const list_language_result = await client.queryArray(
-    "SELECT NAME FROM LANGUAGES",
+    "SELECT LANGUAGE FROM LANGUAGES",
   );
   ctx.response.body = { "language_list": list_language_result.rows };
   await client.end();
