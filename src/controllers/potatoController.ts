@@ -10,10 +10,11 @@ const client = new Client(config);
 
 const potato_list = async (ctx: Context, next: Function) => {
   await client.connect();
-  const list_potato_result = await client.queryArray(
+  const list_potato_result = await client.queryObject(
     "SELECT NAME, TRANSLITERATED_WORD FROM LANGUAGES JOIN TRANSLITERATED_WORDS ON (LANGUAGES.ID=LANGUAGE)",
     // WHERE REFERENCE_WORD_ENGLISH = 1
   );
+
   console.log(list_potato_result.rows);
   ctx.response.body = { "potato_list": list_potato_result.rows };
   await client.end();
