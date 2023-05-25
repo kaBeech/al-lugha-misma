@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS languages_sql_test, challenges_sql_test, available_challenge_cards_sql_test, reference_words_english_sql_test, transliterated_words_sql_test
