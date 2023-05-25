@@ -3,9 +3,11 @@ import { configure, renderFile } from "https://deno.land/x/eta@v1.11.0/mod.ts";
 // import * as postgres from "https://deno.land/x/postgres@v0.14.2/mod.ts";
 // import { config } from "https://deno.land/x/dotenv/mod.ts";
 import * as ponder from "https://deno.land/x/ponder@v0.1.0/mod.ts";
-import "https://deno.land/x/dotenv/load.ts";
+import { load } from "https://deno.land/std/dotenv/mod.ts";
 
-const DB_URI = Deno.env.get("DB_URI") as string;
+const env = await load();
+
+const DB_URI = env["DB_URI"] as string;
 
 const ponderDB1 = await ponder.poolConnection(DB_URI);
 
@@ -25,14 +27,7 @@ const language_list = async (ctx: Context, next: Function) => {
   // const list_language = Array.from(ctx.state.models.languages.values());
   const list_language = await ponderDB1.findAllinOne("languagestest");
 
-  const list_language_string = JSON.stringify(list_language, null, 2);
-
-  // const templateResult = await renderFile("language_list.eta", {
-  //   title: "Language List",
-  //   language_list: list_language_string,
-  // });
-
-  ctx.response.body = list_language_string;
+  ctx.response.body = { "language_list": list_language };
   // ctx.response.body = JSON.stringify(list_language.rows, null, 2);
 };
 
