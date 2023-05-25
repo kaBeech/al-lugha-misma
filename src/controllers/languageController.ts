@@ -1,82 +1,21 @@
-import { Context } from "https://deno.land/x/oak/mod.ts";
-import { configure, renderFile } from "https://deno.land/x/eta@v1.11.0/mod.ts";
-// import * as postgres from "https://deno.land/x/postgres@v0.14.2/mod.ts";
-// import { config } from "https://deno.land/x/dotenv/mod.ts";
-import * as ponder from "https://deno.land/x/ponder@v0.1.0/mod.ts";
-import "https://deno.land/x/dotenv/load.ts";
+import { load } from "https://deno.land/std@0.189.0/dotenv/mod.ts";
+import { Context } from "https://deno.land/x/oak@v11.1.0/context.ts";
+import { Client } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
 
-const DB_URI = Deno.env.get("DB_URI") as string;
+const env = await load();
 
-const ponderDB1 = await ponder.poolConnection(DB_URI);
+const config: string = env["PG_CONFIG"];
 
-// const ponderDB1 = await ponder.poolConnection(
-//   "dburi",
-// );
-
-/////
-
-// const viewPath = `${Deno.cwd()}/views/`;
-
-// configure({
-//   views: viewPath,
-// });s
+const client = new Client(config);
 
 const language_list = async (ctx: Context, next: Function) => {
-  // const list_language = Array.from(ctx.state.models.languages.values());
-  const list_language = await ponderDB1.findAllinOne("languagestest");
-
-  const list_language_string = JSON.stringify(list_language, null, 2);
-
-  // const templateResult = await renderFile("language_list.eta", {
-  //   title: "Language List",
-  //   language_list: list_language_string,
-  // });
-
-  ctx.response.body = list_language_string;
-  // ctx.response.body = JSON.stringify(list_language.rows, null, 2);
+  await client.connect();
+  const list_language_result = await client.queryArray(
+    "SELECT LANGUAGE FROM LANGUAGES",
+  );
+  ctx.response.body = { "language_list": list_language_result.rows };
+  await client.end();
 };
-
-/////
-
-// // const databaseUrl = config()["DATABASE_URL"];
-// const databaseUrl = "dburl";
-
-// const pool = new postgres.Pool(databaseUrl, 3, true);
-
-// const connection = await pool.connect();
-// try {
-//   await connection.queryObject`
-//     CREATE TABLE IF NOT EXISTS languages (
-//       id SERIAL PRIMARY KEY,
-//       title TEXT NOT NULL
-//     )
-//   `;
-// } finally {
-//   connection.release();
-// }
-
-// // const viewPath = `${Deno.cwd()}/views/`;
-
-// // configure({
-// //   views: viewPath,
-// // });
-
-// const language_list = async (ctx: Context, next: Function) => {
-//   // const list_language = Array.from(ctx.state.models.languages.values());
-//   const list_language = await connection.queryObject`
-//   SELECT * FROM languages
-// `;
-
-//   const list_language_string = JSON.stringify(list_language.rows, null, 2);
-
-//   const templateResult = await renderFile("language_list.eta", {
-//     title: "Language List",
-//     language_list: list_language_string,
-//   });
-
-//   ctx.response.body = templateResult;
-//   // ctx.response.body = JSON.stringify(list_language.rows, null, 2);
-// };
 
 export default {
   language_list,
