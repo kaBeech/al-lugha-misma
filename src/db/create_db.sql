@@ -65,7 +65,7 @@ INSERT INTO reference_words_english_sql_test (challenge, reference_word_english)
     (2, '7'),
     (2, '8'),
     (2, '9'),
-    (2, '10')
+    (2, '10'),
     (2, '11'),
     (2, '12'),
     (3, 'Black'),
