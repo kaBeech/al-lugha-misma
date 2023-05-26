@@ -7,9 +7,9 @@ const config: string = env["PG_CONFIG"];
 
 const client = new Client(config);
 
-const potato_list = async () => {
+const getPotatoList = async () => {
   await client.connect();
-  const list_potato_result = await client.queryObject(
+  const listPotatoResult = await client.queryObject(
     `SELECT languages.language, transliterated_word 
       FROM languages 
       JOIN transliterated_words ON (languages.id=transliterated_words.language) 
@@ -17,9 +17,9 @@ const potato_list = async () => {
         WHERE reference_words_english.reference_word_english = 'potato'`,
   );
   await client.end();
-  return { "potato_list": list_potato_result.rows };
+  return { "potatoList": listPotatoResult.rows };
 };
 
 export default {
-  potato_list,
+  getPotatoList,
 };

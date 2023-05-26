@@ -8,15 +8,15 @@ const config: string = env["PG_CONFIG"];
 
 const client = new Client(config);
 
-const language_list = async (ctx: Context) => {
+const getLanguageList = async (ctx: Context) => {
   await client.connect();
-  const list_language_result = await client.queryArray(
+  const listLanguageResult = await client.queryArray(
     "SELECT LANGUAGE FROM LANGUAGES",
   );
-  ctx.response.body = { "language_list": list_language_result.rows };
+  ctx.response.body = { "languagList": listLanguageResult.rows };
   await client.end();
 };
 
 export default {
-  language_list,
+  getLanguageList,
 };
