@@ -13,7 +13,7 @@ const getLanguageList = async (ctx: Context) => {
   const listLanguageResult = await client.queryArray(
     "SELECT LANGUAGE FROM LANGUAGES",
   );
-  ctx.response.body = { "languagList": listLanguageResult.rows };
+  ctx.response.body = { "language_list": listLanguageResult.rows };
   await client.end();
 };
 

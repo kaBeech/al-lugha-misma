@@ -19,7 +19,7 @@ const getAvailableChallengeCards = async (challenge: string) => {
   );
 
   await client.end();
-  return { "availableChallengeCards": availableChallengeCardsResult.rows };
+  return { "available_challenge_cards": availableChallengeCardsResult.rows };
 };
 
 const getChallengeKey = async (challenge: string, languages: string) => {
@@ -43,13 +43,13 @@ const getChallengeKey = async (challenge: string, languages: string) => {
   );
 
   await client.end();
-  return { "challengeKey": challengeKeyResult.rows };
+  return { "challenge_key": challengeKeyResult.rows };
 };
 
 const processChallengeAttempt = (
   challenge: string,
   languages: string,
-  attempt: Promise<{ challengeKey: unknown[] }>,
+  attempt: Promise<{ challenge_key: unknown[] }>,
 ) => {
   if (attempt === getChallengeKey(challenge, languages)) {
     return { "result": "YOU DID IT! CONGRATULATIONS!" };
