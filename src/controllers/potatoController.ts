@@ -10,7 +10,11 @@ const client = new Client(config);
 const potato_list = async () => {
   await client.connect();
   const list_potato_result = await client.queryObject(
-    "SELECT LANGUAGES.LANGUAGE, TRANSLITERATED_WORD FROM LANGUAGES JOIN TRANSLITERATED_WORDS ON (LANGUAGES.ID=TRANSLITERATED_WORDS.LANGUAGE) JOIN REFERENCE_WORDS_ENGLISH ON (TRANSLITERATED_WORDS.REFERENCE_WORD_ENGLISH=REFERENCE_WORDS_ENGLISH.ID) WHERE REFERENCE_WORDS_ENGLISH.REFERENCE_WORD_ENGLISH = 'potato'",
+    `SELECT languages.language, transliterated_word 
+      FROM languages 
+      JOIN transliterated_words ON (languages.id=transliterated_words.language) 
+      JOIN reference_words_english ON (transliterated_words.reference_word_english=reference_words_english.id) 
+        WHERE reference_words_english.reference_word_english = 'potato'`,
   );
   await client.end();
   return { "potato_list": list_potato_result.rows };

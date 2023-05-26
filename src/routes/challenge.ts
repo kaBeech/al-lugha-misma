@@ -17,8 +17,6 @@ router.get(
     const { challenge, languages } = helpers.getQuery(ctx, {
       mergeParams: true,
     });
-    // const challenge = "test1";
-    // const languages = "test2";
     ctx.response.body = await challenge_controller.challenge_key(
       challenge,
       languages,
