@@ -12,7 +12,18 @@ router.get("/potato", (ctx) => {
   ctx.response.body = potato_controller.potato_list;
 });
 router.get(
-  "/challenge_key/challenge/:challenge/languages/:languages",
+  "/available_challenge_cards/challenge/:challenge",
+  async (ctx) => {
+    const { challenge } = helpers.getQuery(ctx, {
+      mergeParams: true,
+    });
+    ctx.response.body = await challenge_controller.available_challenge_cards(
+      challenge,
+    );
+  },
+);
+router.get(
+  "/challenge/:challenge/languages/:languages",
   async (ctx) => {
     const { challenge, languages } = helpers.getQuery(ctx, {
       mergeParams: true,
@@ -23,14 +34,17 @@ router.get(
     );
   },
 );
-router.get(
-  "/available_challenge_cards/challenge/:challenge",
-  async (ctx) => {
-    const { challenge } = helpers.getQuery(ctx, {
+router.put(
+  "/challenge/:challenge/languages/:languages",
+  (ctx) => {
+    const { challenge, languages } = helpers.getQuery(ctx, {
       mergeParams: true,
     });
-    ctx.response.body = await challenge_controller.available_challenge_cards(
+    const attempt = ctx.request.body.arguments;
+    ctx.response.body = challenge_controller.receiveChallengeAttempt(
       challenge,
+      languages,
+      attempt,
     );
   },
 );
