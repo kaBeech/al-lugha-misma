@@ -7,9 +7,9 @@ import challengeController from "../controllers/challengeController.ts";
 const router = new Router();
 
 router.get("/", homepageController.index);
-router.get("/languages", languageController.language_list);
+router.get("/languages", languageController.getLanguageList);
 router.get("/potato", (ctx) => {
-  ctx.response.body = potatoController.potato_list;
+  ctx.response.body = potatoController.getPotatoList;
 });
 router.get(
   "/available_challenge_cards/challenge/:challenge",
