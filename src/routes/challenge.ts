@@ -12,7 +12,7 @@ router.get("/potato", (ctx) => {
   ctx.response.body = potatoController.getPotatoList;
 });
 router.get(
-  "/available_challenge_cards/challenge/:challenge",
+  "/challenge_cards/challenge/:challenge",
   async (ctx) => {
     const { challenge } = helpers.getQuery(ctx, {
       mergeParams: true,

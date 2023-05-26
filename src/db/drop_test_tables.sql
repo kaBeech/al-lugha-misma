@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS languages, challenges, available_challenge_cards, reference_words_english, transliterated_words
+DROP TABLE IF EXISTS languages, challenges, challenge_cards, reference_words_english, transliterated_words

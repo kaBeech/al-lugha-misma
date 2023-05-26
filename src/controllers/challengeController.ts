@@ -10,16 +10,16 @@ const client = new Client(config);
 const getAvailableChallengeCards = async (challenge: string) => {
   await client.connect();
 
-  const availableChallengeCardsResult = await client.queryObject(
+  const challengeCardsResult = await client.queryObject(
     `SELECT languages.language 
-      FROM available_challenge_cards 
-      JOIN languages ON (available_challenge_cards.language=languages.id) 
-      JOIN challenges ON (available_challenge_cards.challenge=challenges.id) 
+      FROM challenge_cards 
+      JOIN languages ON (challenge_cards.language=languages.id) 
+      JOIN challenges ON (challenge_cards.challenge=challenges.id) 
         WHERE challenges.challenge = '${challenge}'`,
   );
 
   await client.end();
-  return { "available_challenge_cards": availableChallengeCardsResult.rows };
+  return { "challenge_cards": challengeCardsResult.rows };
 };
 
 const getChallengeKey = async (challenge: string, languages: string) => {
@@ -54,7 +54,7 @@ const processChallengeAttempt = (
   // pseudo: {
   //  verify whether attempt is successful,
   //  if (successful) {check cookie for challenge_start_time},
-  //  if (found) {calculate and display completion_time};
+  //  if (found) {calculate and display completion_time [note: in milliseconds - please be mindful of int4 size limitations (it's between 24 and 25 days, in ms)]};
   //  query db for existing completion_record for this challenge,
   //  if !(found && faster than current attempt's completion_time) {
   //   create/update completion_record with current attempt's time
