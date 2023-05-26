@@ -8,11 +8,21 @@ const router = new Router();
 
 router.get("/", homepageController.index);
 router.get("/languages", language_controller.language_list);
-router.get("/potato", potato_controller.potato_list);
-router.get("/challenge_key?challenge=challenge&languages=languages", (ctx) => {
-  const { challenge, languages } = helpers.getQuery(ctx, { mergeParams: true });
-  ctx.response.body = challenge_controller.challenge_key(challenge, languages);
+router.get("/potato", (ctx) => {
+  ctx.response.body = potato_controller.potato_list;
 });
+router.get(
+  "/challenge_key/challenge/:challenge/languages/:languages",
+  (ctx) => {
+    const { challenge, languages } = helpers.getQuery(ctx, {
+      mergeParams: true,
+    });
+    ctx.response.body = challenge_controller.challenge_key(
+      challenge,
+      languages,
+    );
+  },
+);
 
 challenge_controller.challenge_key;
 
