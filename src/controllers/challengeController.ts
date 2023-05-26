@@ -28,7 +28,7 @@ const challenge_key = async (challenge: string, languages: string) => {
   );
 
   await client.end();
-  return { "challenge_key": (await challenge_key_result).rows };
+  return { "challenge_key": challenge_key_result.rows };
 };
 
 const available_challenge_cards = async (challenge: string) => {
@@ -43,7 +43,7 @@ const available_challenge_cards = async (challenge: string) => {
   );
 
   await client.end();
-  return { "available_challenge_cards": (await challenge_key_result).rows };
+  return { "available_challenge_cards": challenge_key_result.rows };
 };
 
 export default {
