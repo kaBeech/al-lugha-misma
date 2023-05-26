@@ -1,15 +1,15 @@
 import { helpers, Router } from "https://deno.land/x/oak@v11.1.0/mod.ts";
 import homepageController from "../controllers/homepageController.ts";
-import language_controller from "../controllers/languageController.ts";
-import potato_controller from "../controllers/potatoController.ts";
-import challenge_controller from "../controllers/challengeController.ts";
+import languageController from "../controllers/languageController.ts";
+import potatoController from "../controllers/potatoController.ts";
+import challengeController from "../controllers/challengeController.ts";
 
 const router = new Router();
 
 router.get("/", homepageController.index);
-router.get("/languages", language_controller.language_list);
+router.get("/languages", languageController.language_list);
 router.get("/potato", (ctx) => {
-  ctx.response.body = potato_controller.potato_list;
+  ctx.response.body = potatoController.potato_list;
 });
 router.get(
   "/available_challenge_cards/challenge/:challenge",
@@ -17,7 +17,7 @@ router.get(
     const { challenge } = helpers.getQuery(ctx, {
       mergeParams: true,
     });
-    ctx.response.body = await challenge_controller.available_challenge_cards(
+    ctx.response.body = await challengeController.getAvailableChallengeCards(
       challenge,
     );
   },
@@ -28,7 +28,7 @@ router.get(
     const { challenge, languages } = helpers.getQuery(ctx, {
       mergeParams: true,
     });
-    ctx.response.body = await challenge_controller.challenge_key(
+    ctx.response.body = await challengeController.getChallengeKey(
       challenge,
       languages,
     );
@@ -41,14 +41,12 @@ router.put(
       mergeParams: true,
     });
     const attempt = ctx.request.body.arguments;
-    ctx.response.body = challenge_controller.receiveChallengeAttempt(
+    ctx.response.body = challengeController.processChallengeAttempt(
       challenge,
       languages,
       attempt,
     );
   },
 );
-
-challenge_controller.challenge_key;
 
 export default router;

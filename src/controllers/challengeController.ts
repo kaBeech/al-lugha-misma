@@ -7,10 +7,10 @@ const config: string = env["PG_CONFIG"];
 
 const client = new Client(config);
 
-const available_challenge_cards = async (challenge: string) => {
+const getAvailableChallengeCards = async (challenge: string) => {
   await client.connect();
 
-  const challenge_key_result = await client.queryObject(
+  const availableChallengeCardsResult = await client.queryObject(
     `SELECT languages.language 
       FROM available_challenge_cards 
       JOIN languages ON (available_challenge_cards.language=languages.id) 
@@ -19,10 +19,10 @@ const available_challenge_cards = async (challenge: string) => {
   );
 
   await client.end();
-  return { "available_challenge_cards": challenge_key_result.rows };
+  return { "availableChallengeCards": availableChallengeCardsResult.rows };
 };
 
-const challenge_key = async (challenge: string, languages: string) => {
+const getChallengeKey = async (challenge: string, languages: string) => {
   await client.connect();
 
   const languagesRaw = languages.split(",");
@@ -32,7 +32,7 @@ const challenge_key = async (challenge: string, languages: string) => {
   }
   languagesFormatted = languagesFormatted.slice(0, -1);
 
-  const challenge_key_result = await client.queryObject(
+  const challengeKeyResult = await client.queryObject(
     `SELECT reference_words_english.reference_word_english, transliterated_word, languages.language 
       FROM languages 
       JOIN transliterated_words ON (languages.id=transliterated_words.language) 
@@ -43,22 +43,22 @@ const challenge_key = async (challenge: string, languages: string) => {
   );
 
   await client.end();
-  return { "challenge_key": challenge_key_result.rows };
+  return { "challengeKey": challengeKeyResult.rows };
 };
 
-const receiveChallengeAttempt = (
+const processChallengeAttempt = (
   challenge: string,
   languages: string,
-  attempt: Promise<{ challenge_key: unknown[] }>,
+  attempt: Promise<{ challengeKey: unknown[] }>,
 ) => {
-  if (attempt === challenge_key(challenge, languages)) {
+  if (attempt === getChallengeKey(challenge, languages)) {
     return { "result": "YOU DID IT! CONGRATULATIONS!" };
   }
   return { "result": "TRY AGAIN!" };
 };
 
 export default {
-  available_challenge_cards,
-  challenge_key,
-  receiveChallengeAttempt,
+  getAvailableChallengeCards,
+  getChallengeKey,
+  processChallengeAttempt,
 };
