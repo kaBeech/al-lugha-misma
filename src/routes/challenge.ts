@@ -13,11 +13,13 @@ router.get("/potato", (ctx) => {
 });
 router.get(
   "/challenge_key/challenge/:challenge/languages/:languages",
-  (ctx) => {
+  async (ctx) => {
     const { challenge, languages } = helpers.getQuery(ctx, {
       mergeParams: true,
     });
-    ctx.response.body = challenge_controller.challenge_key(
+    // const challenge = "test1";
+    // const languages = "test2";
+    ctx.response.body = await challenge_controller.challenge_key(
       challenge,
       languages,
     );
