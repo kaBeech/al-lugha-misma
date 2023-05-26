@@ -24,7 +24,7 @@ const challenge_key = async (challenge: string, languages: string) => {
       JOIN reference_words_english ON (transliterated_words.reference_word_english=reference_words_english.id) 
       JOIN challenges ON (reference_words_english.challenge=challenges.id) 
         WHERE challenges.challenge = '${challenge}' 
-        AND languages.language IN (${languagesFormatted})`,
+        AND languages.language_http_friendly IN (${languagesFormatted})`,
   );
 
   await client.end();
