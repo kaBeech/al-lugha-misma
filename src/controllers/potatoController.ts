@@ -1,5 +1,4 @@
 import { load } from "https://deno.land/std@0.189.0/dotenv/mod.ts";
-import { Context } from "https://deno.land/x/oak@v11.1.0/context.ts";
 import { Client } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
 
 const env = await load();
@@ -8,13 +7,17 @@ const config: string = env["PG_CONFIG"];
 
 const client = new Client(config);
 
-const potato_list = async (ctx: Context, next: Function) => {
+const potato_list = async () => {
   await client.connect();
   const list_potato_result = await client.queryObject(
-    "SELECT LANGUAGES.LANGUAGE, TRANSLITERATED_WORD FROM LANGUAGES JOIN TRANSLITERATED_WORDS ON (LANGUAGES.ID=TRANSLITERATED_WORDS.LANGUAGE) JOIN REFERENCE_WORDS_ENGLISH ON (REFERENCE_WORD_ENGLISH=REFERENCE_WORDS_ENGLISH.ID) WHERE WORD = 'Potato'",
+    `SELECT languages.language, transliterated_word 
+      FROM languages 
+      JOIN transliterated_words ON (languages.id=transliterated_words.language) 
+      JOIN reference_words_english ON (transliterated_words.reference_word_english=reference_words_english.id) 
+        WHERE reference_words_english.reference_word_english = 'potato'`,
   );
-  ctx.response.body = { "potato_list": list_potato_result.rows };
   await client.end();
+  return { "potato_list": list_potato_result.rows };
 };
 
 export default {

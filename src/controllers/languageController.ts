@@ -8,7 +8,7 @@ const config: string = env["PG_CONFIG"];
 
 const client = new Client(config);
 
-const language_list = async (ctx: Context, next: Function) => {
+const language_list = async (ctx: Context) => {
   await client.connect();
   const list_language_result = await client.queryArray(
     "SELECT LANGUAGE FROM LANGUAGES",
