@@ -23,6 +23,17 @@ router.get(
     );
   },
 );
+router.get(
+  "/available_challenge_cards/challenge/:challenge",
+  async (ctx) => {
+    const { challenge } = helpers.getQuery(ctx, {
+      mergeParams: true,
+    });
+    ctx.response.body = await challenge_controller.available_challenge_cards(
+      challenge,
+    );
+  },
+);
 
 challenge_controller.challenge_key;
 

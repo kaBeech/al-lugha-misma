@@ -31,6 +31,22 @@ const challenge_key = async (challenge: string, languages: string) => {
   return { "challenge_key": (await challenge_key_result).rows };
 };
 
+const available_challenge_cards = async (challenge: string) => {
+  await client.connect();
+
+  const challenge_key_result = await client.queryObject(
+    `SELECT languages.language 
+      FROM available_challenge_cards 
+      JOIN languages ON (available_challenge_cards.language=languages.id) 
+      JOIN challenges ON (available_challenge_cards.challenge=challenges.id) 
+        WHERE challenges.challenge = '${challenge}'`,
+  );
+
+  await client.end();
+  return { "available_challenge_cards": (await challenge_key_result).rows };
+};
+
 export default {
+  available_challenge_cards,
   challenge_key,
 };
