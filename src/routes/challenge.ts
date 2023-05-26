@@ -23,7 +23,7 @@ router.get(
   },
 );
 router.get(
-  "/challenge/:challenge/languages/:languages",
+  "/challenge/:challenge/languages/:languages/key",
   async (ctx) => {
     const { challenge, languages } = helpers.getQuery(ctx, {
       mergeParams: true,
@@ -32,6 +32,35 @@ router.get(
       challenge,
       languages,
     );
+  },
+);
+router.get(
+  "/challenge/:challenge/languages/:languages/record",
+  (ctx) => {
+    // const { challenge, languages } = helpers.getQuery(ctx, {
+    //   mergeParams: true,
+    // });
+    // ctx.response.body = await challengeController.getChallengeRecord(
+    //   challenge,
+    //   languages,
+    // );
+    ctx.response.body = "GET CHALLENGE RECORD route not yet implemented";
+  },
+);
+router.get(
+  "/challenge/:challenge/languages/:languages",
+  (ctx) => {
+    // const { challenge, languages } = helpers.getQuery(ctx, {
+    //   mergeParams: true,
+    // });
+    // const attempt = ctx.request.body.arguments;
+    // ctx.response.body = challengeController.startChallenge(
+    //   challenge,
+    //   languages,
+    //   attempt,
+    // );
+    ctx.response.body = "START CHALLENGE route not yet implemented";
+    // pseudo: Create session cookie with challenge, languages, and timestamp of challenge_start_time
   },
 );
 router.put(

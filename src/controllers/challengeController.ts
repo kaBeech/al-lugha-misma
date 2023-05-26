@@ -51,6 +51,15 @@ const processChallengeAttempt = (
   languages: string,
   attempt: Promise<{ challenge_key: unknown[] }>,
 ) => {
+  // pseudo: {
+  //  verify whether attempt is successful,
+  //  if (successful) {check cookie for challenge_start_time},
+  //  if (found) {calculate and display completion_time};
+  //  query db for existing completion_record for this challenge,
+  //  if !(found && faster than current attempt's completion_time) {
+  //   create/update completion_record with current attempt's time
+  //  };
+  // }
   if (attempt === getChallengeKey(challenge, languages)) {
     return { "result": "YOU DID IT! CONGRATULATIONS!" };
   }
