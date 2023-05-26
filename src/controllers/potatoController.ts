@@ -17,7 +17,7 @@ const getPotatoList = async () => {
         WHERE reference_words_english.reference_word_english = 'potato'`,
   );
   await client.end();
-  return { "potatoList": listPotatoResult.rows };
+  return { "potato_list": listPotatoResult.rows };
 };
 
 export default {
