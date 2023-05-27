@@ -7,22 +7,22 @@ const config: string = env["PG_CONFIG"];
 
 const client = new Client(config);
 
-const getAvailableChallengeCards = async (challenge: string) => {
+const getAvailableChallengeCards = async (word_list: string) => {
   await client.connect();
 
   const challengeCardsResult = await client.queryObject(
     `SELECT languages.language 
       FROM challenge_cards 
       JOIN languages ON (challenge_cards.language=languages.id) 
-      JOIN challenges ON (challenge_cards.challenge=challenges.id) 
-        WHERE challenges.challenge = '${challenge}'`,
+      JOIN word_lists ON (word_lists.word_list=word_lists.id) 
+        WHERE word_lists.word_list = '${word_list}'`,
   );
 
   await client.end();
   return { "challenge_cards": challengeCardsResult.rows };
 };
 
-const getChallengeKey = async (challenge: string, languages: string) => {
+const getChallengeKey = async (word_list: string, languages: string) => {
   await client.connect();
 
   const languagesRaw = languages.split(",");
@@ -37,8 +37,8 @@ const getChallengeKey = async (challenge: string, languages: string) => {
       FROM languages 
       JOIN transliterated_words ON (languages.id=transliterated_words.language) 
       JOIN reference_words_english ON (transliterated_words.reference_word_english=reference_words_english.id) 
-      JOIN challenges ON (reference_words_english.challenge=challenges.id) 
-        WHERE challenges.challenge = '${challenge}' 
+      JOIN word_lists ON (reference_words_english.word_list=word_lists.id) 
+        WHERE word_lists.word_list = '${word_list}' 
         AND languages.language_http_friendly IN (${languagesFormatted})`,
   );
 
@@ -47,7 +47,7 @@ const getChallengeKey = async (challenge: string, languages: string) => {
 };
 
 const processChallengeAttempt = (
-  challenge: string,
+  word_lists: string,
   languages: string,
   attempt: Promise<{ challenge_key: unknown[] }>,
 ) => {
@@ -60,7 +60,7 @@ const processChallengeAttempt = (
   //   create/update completion_record with current attempt's time
   //  };
   // }
-  if (attempt === getChallengeKey(challenge, languages)) {
+  if (attempt === getChallengeKey(word_lists, languages)) {
     return { "result": "YOU DID IT! CONGRATULATIONS!" };
   }
   return { "result": "TRY AGAIN!" };

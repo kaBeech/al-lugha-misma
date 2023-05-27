@@ -12,66 +12,66 @@ router.get("/potato", (ctx) => {
   ctx.response.body = potatoController.getPotatoList;
 });
 router.get(
-  "/challenge_cards/challenge/:challenge",
+  "/challenge_cards/word_list/:word_list",
   async (ctx) => {
-    const { challenge } = helpers.getQuery(ctx, {
+    const { word_list } = helpers.getQuery(ctx, {
       mergeParams: true,
     });
     ctx.response.body = await challengeController.getAvailableChallengeCards(
-      challenge,
+      word_list,
     );
   },
 );
 router.get(
-  "/challenge/:challenge/languages/:languages/key",
+  "/word_list/:word_list/languages/:languages/key",
   async (ctx) => {
-    const { challenge, languages } = helpers.getQuery(ctx, {
+    const { word_list, languages } = helpers.getQuery(ctx, {
       mergeParams: true,
     });
     ctx.response.body = await challengeController.getChallengeKey(
-      challenge,
+      word_list,
       languages,
     );
   },
 );
 router.get(
-  "/challenge/:challenge/languages/:languages/record",
+  "/word_list/:word_list/languages/:languages/record",
   (ctx) => {
-    // const { challenge, languages } = helpers.getQuery(ctx, {
+    // const { word_list, languages } = helpers.getQuery(ctx, {
     //   mergeParams: true,
     // });
     // ctx.response.body = await challengeController.getChallengeRecord(
-    //   challenge,
+    //   word_list,
     //   languages,
     // );
     ctx.response.body = "GET CHALLENGE RECORD route not yet implemented";
   },
 );
 router.get(
-  "/challenge/:challenge/languages/:languages",
+  "/word_list/:word_list/languages/:languages",
   (ctx) => {
-    // const { challenge, languages } = helpers.getQuery(ctx, {
+    // const { word_list, languages } = helpers.getQuery(ctx, {
     //   mergeParams: true,
     // });
     // const attempt = ctx.request.body.arguments;
     // ctx.response.body = challengeController.startChallenge(
-    //   challenge,
+    //   word_list,
     //   languages,
     //   attempt,
     // );
     ctx.response.body = "START CHALLENGE route not yet implemented";
-    // pseudo: Create session cookie with challenge, languages, and timestamp of challenge_start_time
+    // pseudo: Create session cookie with word_list, languages, and timestamp of challenge_start_time
   },
 );
 router.put(
-  "/challenge/:challenge/languages/:languages",
+  "/word_list/:word_list/languages/:languages",
   (ctx) => {
-    const { challenge, languages } = helpers.getQuery(ctx, {
+    const { word_list, languages } = helpers.getQuery(ctx, {
       mergeParams: true,
     });
     const attempt = ctx.request.body.arguments;
     ctx.response.body = challengeController.processChallengeAttempt(
-      challenge,
+      word_list,
       languages,
       attempt,
     );
