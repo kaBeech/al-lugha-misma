@@ -1,1 +1,14 @@
-DROP TABLE IF EXISTS languages, challenges, challenge_cards, reference_words_english, transliterated_words
+DROP TABLE IF EXISTS languages_sql_test,
+  word_lists_sql_test,
+  word_lists_custom_sql_test,
+  reference_words_english_sql_test,
+  word_lists_custom_associations_sql_test,
+  challenge_cards_sql_test,
+  challenge_cards_custom_sql_test,
+  challenge_decks_sql_test,
+  challenge_decks_custom_sql_test,
+  challenge_deck_associations_sql_test,
+  challenge_deck_custom_associations_sql_test,
+  challenge_deck_record_times_sql_test,
+  challenge_deck_custom_record_times_sql_test,
+  transliterated_words_sql_test
